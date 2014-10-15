@@ -19,7 +19,7 @@ public class WorkingFragment extends Fragment {
 	private TextView timer_minute,timer_second,status_textview;
 	private ImageButton stop_timer;
 	private Button timer_done,record_task;
-	private LinearLayout timer_linearlayout;
+	private LinearLayout timer_linearlayout,status_image_linearlayout;
 	private int TOTAL_TIME = 1;
 	private CountDownTimer timer;
 	private FragmentCallBack fragmentCallBack;
@@ -46,7 +46,8 @@ public class WorkingFragment extends Fragment {
 		timer_minute = (TextView)view.findViewById(R.id.timer_minute);
 		timer_second = (TextView)view.findViewById(R.id.timer_second);
 		timer_linearlayout = (LinearLayout)view.findViewById(R.id.timer_linearlayout);
-		
+		//绑定放置多少个番茄钟图片的LinearLayout
+		status_image_linearlayout = (LinearLayout)view.findViewById(R.id.status_image_linearlayout);
 		//绑定取消番茄时钟的Button stop_timer和计时完成的Button timer_done
 		stop_timer = (ImageButton)view.findViewById(R.id.stop_timer);
 		timer_done = (Button)view.findViewById(R.id.timer_done);
@@ -57,7 +58,7 @@ public class WorkingFragment extends Fragment {
 		fragmentCallBack.recordTaskButtonListener(record_task);
 		//回调MainActivity的initWorkingFragment()函数
 		//返回倒计时的时间传给Total_Time，并初始化成对应的模式
-		TOTAL_TIME = fragmentCallBack.initWorkingFragment(view, status_textview, timer_done, record_task, stop_timer);
+		TOTAL_TIME = fragmentCallBack.initWorkingFragment(view, status_textview, timer_done, record_task, stop_timer, status_image_linearlayout);
 		//监听取消番茄时钟Button
 		fragmentCallBack.stopPotatoClockButtonListener(stop_timer);
 		//监听计时完成的Button timer_done

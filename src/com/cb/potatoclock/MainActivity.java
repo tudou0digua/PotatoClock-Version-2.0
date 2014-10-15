@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -114,12 +116,15 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	}
 	//回调函数，初始化WorkingFragment界面
 	@Override
-	public int initWorkingFragment(View view, TextView workStatus, Button button, Button recordTask, ImageButton stopTimer) {
-		
+	public int initWorkingFragment(View view, TextView workStatus, Button button, Button recordTask, ImageButton stopTimer, LinearLayout addImage) {
+		//
+		addStatusImage(addImage, WORKING_TYPE);
+		//
 		switch(WORKING_TYPE){
 		case WORKING:
 			view.setBackgroundColor(Color.parseColor("#CC0033"));
 			workStatus.setText("工作中...");
+			
 			if(POTATO_NUMBER%4 == 0){
 				button.setText("长休息");
 			}else{
@@ -145,6 +150,24 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		}
 
 	}
+	//添加表示工作状态的图标
+	public void addStatusImage(LinearLayout ll, int status){
+		
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		ImageView statusImage = new ImageView(MainActivity.this);
+		if(status == 0){
+			statusImage.setImageResource(R.drawable.tomato);
+		}else if(status == 1){
+			statusImage.setImageResource(R.drawable.shortrest);
+		}else{
+			statusImage.setImageResource(R.drawable.longrest);
+		}
+		lp.setMargins(5, 0, 0, 0);
+		ll.addView(statusImage, lp);
+		
+	}
+	
 	//番茄工作时钟完成后，单击完成按钮，能记录任务的详细信息
 	@Override
 	public void recordTaskButtonListener(View view) {
