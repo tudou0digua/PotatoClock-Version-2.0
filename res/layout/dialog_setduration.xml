@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFDDFFFF"
+    android:orientation="vertical"
+    android:padding="5dp" >
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置番茄时间"
+        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:textColor="#FF000000"
+        android:padding="10dp"/>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FF0099FF"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tomato_gray"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作："
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+        <TextView 
+            android:id="@+id/tvWorkTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:textColor="#FF0099FF"
+            android:textSize="16sp"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekBarWorkTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:max="59" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#FFCCCCCC"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shortrest_gray"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="短休息："
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+        <TextView
+            android:id="@+id/tvShortRestTime" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:textColor="#FF0099FF"
+            android:textSize="16sp"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekBarShortRestTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:max="59" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#FFCCCCCC"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/longrest_gray"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="长休息："
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+        <TextView 
+            android:id="@+id/tvLongRestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:textColor="#FF0099FF"
+            android:textSize="16sp"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textColor="#FF000000"
+            android:textSize="16sp"/>
+        
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekBarLongRestTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:max="59" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFCCCCCC"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        
+        <Button 
+            android:id="@+id/dialog_button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="16sp"
+            android:background="@drawable/set_background_white"/>
+        
+        <View 
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FFCCCCCC"/>
+        
+        <Button 
+            android:id="@+id/dialog_button_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="16sp"
+            android:background="@drawable/set_background_white"/>
+    </LinearLayout>
+    
+</LinearLayout>
