@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements FragmentCallBack{
@@ -24,6 +25,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	private final int LONG_REST = 2;
 	public int WORKING_TYPE = WORKING;
 	public int POTATO_NUMBER = 1;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 			
 			@Override
 			public void onClick(View v) {
+				WorkingFragment workingFragment = new WorkingFragment();
 				FragmentTransaction ft = fragmentManager.beginTransaction();
 				ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 				if(WORKING_TYPE == WORKING){
@@ -74,7 +77,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 					WORKING_TYPE = WORKING;
 				}
 				
-				ft.replace(R.id.launchFrameLayout,new WorkingFragment());
+				ft.replace(R.id.launchFrameLayout,workingFragment);
 				
 				Log.d("PotatoNumber", POTATO_NUMBER+"");
 				ft.addToBackStack(null);
@@ -85,8 +88,14 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	//回调函数，监听WokingFragment取消番茄时钟按钮
 	@Override
 	public void stopPotatoClockButtonListener(View view) {
-		// TODO Auto-generated method stub
-		
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	@Override
@@ -105,11 +114,12 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	}
 	//回调函数，初始化WorkingFragment界面
 	@Override
-	public int initWorkingFragment(View view, Button button) {
+	public int initWorkingFragment(View view, TextView workStatus, Button button, Button recordTask, ImageButton stopTimer) {
 		
 		switch(WORKING_TYPE){
 		case WORKING:
-			view.setBackgroundColor(Color.parseColor("#9966CC"));
+			view.setBackgroundColor(Color.parseColor("#CC0033"));
+			workStatus.setText("工作中...");
 			if(POTATO_NUMBER%4 == 0){
 				button.setText("长休息");
 			}else{
@@ -118,15 +128,33 @@ public class MainActivity extends Activity implements FragmentCallBack{
 			return WORK_TIME;
 		case SHORT_REST:
 			view.setBackgroundColor(Color.parseColor("#3399CC"));
+			workStatus.setText("短休息中...");
 			button.setText("工作");
+			recordTask.setVisibility(View.VISIBLE);
+			stopTimer.setVisibility(View.GONE);
 			return SHORT_REST_TIME;
 		case LONG_REST:
 			view.setBackgroundColor(Color.parseColor("#336699"));
+			workStatus.setText("长休息中...");
 			button.setText("工作");
+			recordTask.setVisibility(View.VISIBLE);
+			stopTimer.setVisibility(View.GONE);
 			return LONG_REST_TIME;
 		default:
-			return 100;
+			return 90;
 		}
 
+	}
+	//番茄工作时钟完成后，单击完成按钮，能记录任务的详细信息
+	@Override
+	public void recordTaskButtonListener(View view) {
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 }
