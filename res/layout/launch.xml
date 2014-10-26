@@ -74,14 +74,6 @@
 	            android:textColorHint="#99ffffff"
 	            android:textCursorDrawable="@null"
 	            android:textSize="18sp" />
-            <ImageButton 
-                android:id="@+id/taskname_name_input_ok"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_input_ok"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/set_background_white"/>
-        
             
         </RelativeLayout>
         

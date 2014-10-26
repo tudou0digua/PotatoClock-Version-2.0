@@ -3,6 +3,7 @@ package com.cb.potatoclock;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -29,7 +31,11 @@ public class LaunchFragment extends Fragment {
 	private TextView tvWorkTime,tvShortRestTime,tvLongRestTime;
 	private TextView tvLaunchWorkTime,tvLaunchShortRestTime,tvLaunchLongRestTime;
 	private int workTime,shortRestTime,longRestTime;
+	private EditText taskName;
 	private Bundle cacheTime= new Bundle();
+	public SharedPreferences sp;
+	public SharedPreferences.Editor editor;
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -38,6 +44,16 @@ public class LaunchFragment extends Fragment {
 		}catch(ClassCastException e){
 			throw new ClassCastException(activity.toString() + "must implements FragmentCallback Interface");
 		}
+	}
+	
+	//绑定SharedPreferences
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		//getSharedPreferences("pomodoro", 0)中的0表示：MODE_PRIVATE
+		sp = getActivity().getSharedPreferences("pomodoro_time", 0);
+		editor = sp.edit();
+		editor.putInt("killed_tag", 0).commit();
+		super.onCreate(savedInstanceState);
 	}
 
 	@Override
@@ -68,9 +84,10 @@ public class LaunchFragment extends Fragment {
 		linearLayoutWork.setOnClickListener(new LinearLayoutListener());
 		linearLayoutShortTime.setOnClickListener(new LinearLayoutListener());
 		linearLayoutLongTime.setOnClickListener(new LinearLayoutListener());
+		taskName = (EditText)view.findViewById(R.id.task_name);
 		//开始番茄工作法，监听launch按钮
 		launch = ((ImageButton)view.findViewById(R.id.ready_go));
-		fragmentCallBack.launchOnClickListener(launch);
+		fragmentCallBack.launchOnClickListener(launch, taskName);
 		
 		
 		return view;
@@ -109,10 +126,17 @@ public class LaunchFragment extends Fragment {
 					//取出cacheTime中的数据
 					workTime = cacheTime.getInt("work");
 					MainActivity.WORK_TIME = workTime;
+					editor.putInt("work_time", workTime);
+					
 					shortRestTime = cacheTime.getInt("shortrest");
 					MainActivity.SHORT_REST_TIME = shortRestTime;
+					editor.putInt("short_rest_time", shortRestTime);
+					
 					longRestTime = cacheTime.getInt("longrest");
 					MainActivity.LONG_REST_TIME = longRestTime;
+					editor.putInt("long_rest_time", longRestTime);
+					
+					editor.commit();
 					//设置luanch页面中的有关时间的TextView
 					setLuanchTimeTextView(workTime,shortRestTime,longRestTime);
 					dialogSetDuration.dismiss();

@@ -29,38 +29,38 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <TextView 
+            <TextView
                 android:id="@+id/status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="工作中..."
                 android:textColor="#FFFFFFFF"
-                android:textSize="12sp"
-                android:layout_marginBottom="5dp"/>
-            
-            <LinearLayout 
+                android:textSize="12sp" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-	            <TextView
-	                android:id="@+id/timer_minute"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center"
-	                android:text="25 : "
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="40sp" />
-	
-	            <TextView
-	                android:id="@+id/timer_second"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center"
-	                android:text="00"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="40sp" />
-            </LinearLayout>	
-            
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/timer_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="25 : "
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/timer_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="00"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="40sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <Button
@@ -82,22 +82,38 @@
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="6级单词"
-            android:textColor="#FFFFFFFF"
-            android:textSize="25sp" />
-
-        <LinearLayout
-            android:id="@+id/status_image_linearlayout"
+            android:id="@+id/show_task"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal" >
-        </LinearLayout>
+            android:text="6级单词"
+            android:textColor="#FFFFFFFF"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <HorizontalScrollView
+                android:id="@+id/HorizontalScrollView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerInParent="true"
+                android:scrollbars="none" >
+
+                <LinearLayout
+                    android:id="@+id/status_image_linearlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -112,8 +128,8 @@
                 android:background="@drawable/launch_button_background_circle"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_stop" />
-            
-            <Button 
+
+            <Button
                 android:id="@+id/record_task"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -121,7 +137,7 @@
                 android:background="@drawable/launch_button_background_circle"
                 android:text="完成"
                 android:textSize="25sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </FrameLayout>
     </LinearLayout>
 
