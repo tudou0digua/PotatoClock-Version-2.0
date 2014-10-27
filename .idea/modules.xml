@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
-    <modules />
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PotatoClock.iml" filepath="$PROJECT_DIR$/PotatoClock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../library_slidingmenu/library.iml" filepath="$PROJECT_DIR$/../library_slidingmenu/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../library_nineoldandroids/library_nineoldandroids.iml" filepath="$PROJECT_DIR$/../library_nineoldandroids/library_nineoldandroids.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../library_swiplistview/library_swiplistview.iml" filepath="$PROJECT_DIR$/../library_swiplistview/library_swiplistview.iml" />
+    </modules>
   </component>
 </project>
 
