@@ -234,108 +234,123 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
-        public static final int shadow_width=0x7f050002;
-        public static final int slidingmenu_offset=0x7f050003;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+        public static final int shadow_width=0x7f060002;
+        public static final int slidingmenu_offset=0x7f060003;
     }
     public static final class drawable {
         public static final int arrow_next=0x7f020000;
         public static final int bg_edittext_off=0x7f020001;
         public static final int bg_edittext_on=0x7f020002;
-        public static final int choice_selected=0x7f020003;
-        public static final int choice_unselected=0x7f020004;
-        public static final int edittext_taskname_background=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int icon_back_black=0x7f020007;
-        public static final int icon_begin=0x7f020008;
-        public static final int icon_input_ok=0x7f020009;
-        public static final int icon_next=0x7f02000a;
-        public static final int icon_quotes_finished_left=0x7f02000b;
-        public static final int icon_quotes_finished_right=0x7f02000c;
-        public static final int icon_quotes_unfinished_left=0x7f02000d;
-        public static final int icon_quotes_unfinished_right=0x7f02000e;
-        public static final int icon_setting=0x7f02000f;
-        public static final int icon_share=0x7f020010;
-        public static final int icon_status_finished=0x7f020011;
-        public static final int icon_status_unfinished=0x7f020012;
-        public static final int icon_stop=0x7f020013;
-        public static final int launch_button_background_circle=0x7f020014;
-        public static final int logo=0x7f020015;
-        public static final int logo_notif=0x7f020016;
-        public static final int logo_notif_s=0x7f020017;
-        public static final int longrest=0x7f020018;
-        public static final int longrest_break=0x7f020019;
-        public static final int longrest_gray=0x7f02001a;
-        public static final int scrubber_control_normal_holo=0x7f02001b;
-        public static final int scrubber_control_pressed_holo=0x7f02001c;
-        public static final int set_background_white=0x7f02001d;
-        public static final int shortrest=0x7f02001e;
-        public static final int shortrest_break=0x7f02001f;
-        public static final int shortrest_gray=0x7f020020;
-        public static final int sliding_menu_shadow=0x7f020021;
-        public static final int thumb_seekbar_down=0x7f020022;
-        public static final int thumb_seekbar_normal=0x7f020023;
-        public static final int toggleswitch_off=0x7f020024;
-        public static final int toggleswitch_on=0x7f020025;
-        public static final int tomato=0x7f020026;
-        public static final int tomato_break=0x7f020027;
-        public static final int tomato_gray=0x7f020028;
+        public static final int bg_task_done_item_number=0x7f020003;
+        public static final int choice_selected=0x7f020004;
+        public static final int choice_unselected=0x7f020005;
+        public static final int edittext_taskname_background=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int icon_back_black=0x7f020008;
+        public static final int icon_begin=0x7f020009;
+        public static final int icon_input_ok=0x7f02000a;
+        public static final int icon_next=0x7f02000b;
+        public static final int icon_quotes_finished_left=0x7f02000c;
+        public static final int icon_quotes_finished_right=0x7f02000d;
+        public static final int icon_quotes_unfinished_left=0x7f02000e;
+        public static final int icon_quotes_unfinished_right=0x7f02000f;
+        public static final int icon_setting=0x7f020010;
+        public static final int icon_share=0x7f020011;
+        public static final int icon_status_finished=0x7f020012;
+        public static final int icon_status_unfinished=0x7f020013;
+        public static final int icon_stop=0x7f020014;
+        public static final int launch_button_background_circle=0x7f020015;
+        public static final int logo=0x7f020016;
+        public static final int logo_notif=0x7f020017;
+        public static final int logo_notif_s=0x7f020018;
+        public static final int longrest=0x7f020019;
+        public static final int longrest_break=0x7f02001a;
+        public static final int longrest_gray=0x7f02001b;
+        public static final int scrubber_control_normal_holo=0x7f02001c;
+        public static final int scrubber_control_pressed_holo=0x7f02001d;
+        public static final int set_background_white=0x7f02001e;
+        public static final int shortrest=0x7f02001f;
+        public static final int shortrest_break=0x7f020020;
+        public static final int shortrest_gray=0x7f020021;
+        public static final int sliding_menu_shadow=0x7f020022;
+        public static final int thumb_seekbar_down=0x7f020023;
+        public static final int thumb_seekbar_normal=0x7f020024;
+        public static final int toggleswitch_off=0x7f020025;
+        public static final int toggleswitch_on=0x7f020026;
+        public static final int tomato=0x7f020027;
+        public static final int tomato_break=0x7f020028;
+        public static final int tomato_gray=0x7f020029;
     }
     public static final class id {
-        public static final int HorizontalScrollView1=0x7f04001a;
-        public static final int action_settings=0x7f040034;
-        public static final int both=0x7f040006;
-        public static final int choice=0x7f040007;
-        public static final int circleProgressBar=0x7f040013;
-        public static final int dialog_button_cancel=0x7f040011;
-        public static final int dialog_button_confirm=0x7f040012;
-        public static final int dismiss=0x7f040008;
-        public static final int framlayout_task_done=0x7f04002d;
-        public static final int fullscreen=0x7f040003;
-        public static final int id_back=0x7f04002f;
-        public static final int id_front=0x7f040031;
-        public static final int id_remove=0x7f040030;
-        public static final int id_text=0x7f040032;
-        public static final int launchFrameLayout=0x7f04000a;
-        public static final int launch_main=0x7f04001e;
-        public static final int left=0x7f040001;
-        public static final int linearLayout_center=0x7f040022;
-        public static final int linearlayout_longrest=0x7f040028;
-        public static final int linearlayout_shortrest=0x7f040026;
-        public static final int linearlayout_work=0x7f040024;
-        public static final int margin=0x7f040004;
-        public static final int none=0x7f040005;
-        public static final int ready_go=0x7f040021;
-        public static final int record_task=0x7f04001d;
-        public static final int relativeLayout_top=0x7f04001f;
-        public static final int reveal=0x7f040009;
-        public static final int right=0x7f040002;
-        public static final int seekBarLongRestTime=0x7f040010;
-        public static final int seekBarShortRestTime=0x7f04000e;
-        public static final int seekBarWorkTime=0x7f04000c;
-        public static final int selected_view=0x7f040000;
-        public static final int setting_button=0x7f040020;
-        public static final int show_task=0x7f040019;
-        public static final int sliding_menu=0x7f04002a;
-        public static final int slidingmenumain=0x7f04002c;
-        public static final int status_image_linearlayout=0x7f04001b;
-        public static final int status_textview=0x7f040015;
-        public static final int stop_timer=0x7f04001c;
-        public static final int task_done_calendar=0x7f04002e;
-        public static final int task_done_linearlayout=0x7f04002b;
-        public static final int task_done_swiplistview=0x7f040033;
-        public static final int task_name=0x7f040023;
-        public static final int textview_longresttime=0x7f040029;
-        public static final int textview_shortresttime=0x7f040027;
-        public static final int textview_worktime=0x7f040025;
-        public static final int timer_done=0x7f040018;
-        public static final int timer_linearlayout=0x7f040014;
-        public static final int timer_minute=0x7f040016;
-        public static final int timer_second=0x7f040017;
-        public static final int tvLongRestTime=0x7f04000f;
-        public static final int tvShortRestTime=0x7f04000d;
-        public static final int tvWorkTime=0x7f04000b;
+        public static final int HorizontalScrollView1=0x7f05001a;
+        public static final int action_settings=0x7f050042;
+        public static final int both=0x7f050006;
+        public static final int checkbox_ring=0x7f05002d;
+        public static final int checkbox_vibrator=0x7f05002e;
+        public static final int choice=0x7f050007;
+        public static final int circleProgressBar=0x7f050013;
+        public static final int dialog_button_cancel=0x7f050011;
+        public static final int dialog_button_confirm=0x7f050012;
+        public static final int dismiss=0x7f050008;
+        public static final int framlayout_task_done=0x7f050037;
+        public static final int fullscreen=0x7f050003;
+        public static final int id_back=0x7f050033;
+        public static final int id_front=0x7f050032;
+        public static final int id_remove=0x7f050038;
+        public static final int launchFrameLayout=0x7f05000a;
+        public static final int launch_main=0x7f05001e;
+        public static final int left=0x7f050001;
+        public static final int linearLayout_center=0x7f050022;
+        public static final int linearlayout_longrest=0x7f050028;
+        public static final int linearlayout_shortrest=0x7f050026;
+        public static final int linearlayout_work=0x7f050024;
+        public static final int margin=0x7f050004;
+        public static final int none=0x7f050005;
+        public static final int ready_go=0x7f050021;
+        public static final int record_task=0x7f05001d;
+        public static final int relativeLayout_top=0x7f05001f;
+        public static final int reveal=0x7f050009;
+        public static final int right=0x7f050002;
+        public static final int seekBarLongRestTime=0x7f050010;
+        public static final int seekBarShortRestTime=0x7f05000e;
+        public static final int seekBarWorkTime=0x7f05000c;
+        public static final int selected_view=0x7f050000;
+        public static final int setting_button=0x7f050020;
+        public static final int show_task=0x7f050019;
+        public static final int sliding_menu=0x7f05002a;
+        public static final int slidingmenumain=0x7f05002f;
+        public static final int status_image_linearlayout=0x7f05001b;
+        public static final int status_textview=0x7f050015;
+        public static final int stop_timer=0x7f05001c;
+        public static final int task_done_day=0x7f050036;
+        public static final int task_done_linearlayout=0x7f05002c;
+        public static final int task_done_month=0x7f050035;
+        public static final int task_done_selected_time=0x7f050030;
+        public static final int task_done_swiplistview=0x7f050031;
+        public static final int task_done_time=0x7f05003c;
+        public static final int task_done_year=0x7f050034;
+        public static final int task_name=0x7f050023;
+        public static final int task_number=0x7f050039;
+        public static final int task_start_time=0x7f05003b;
+        public static final int task_todo_item_delete=0x7f050040;
+        public static final int task_todo_item_name=0x7f050041;
+        public static final int task_todo_linearlayout=0x7f05002b;
+        public static final int task_todo_name_edittext=0x7f05003d;
+        public static final int task_todo_name_submit=0x7f05003e;
+        public static final int task_todo_swiplistview=0x7f05003f;
+        public static final int task_working_time=0x7f05003a;
+        public static final int textview_longresttime=0x7f050029;
+        public static final int textview_shortresttime=0x7f050027;
+        public static final int textview_worktime=0x7f050025;
+        public static final int timer_done=0x7f050018;
+        public static final int timer_linearlayout=0x7f050014;
+        public static final int timer_minute=0x7f050016;
+        public static final int timer_second=0x7f050017;
+        public static final int tvLongRestTime=0x7f05000f;
+        public static final int tvShortRestTime=0x7f05000d;
+        public static final int tvWorkTime=0x7f05000b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -347,19 +362,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int sliding_menu_content=0x7f030006;
         public static final int slidingmenumain=0x7f030007;
         public static final int task_done=0x7f030008;
-        public static final int task_done_calendar=0x7f030009;
+        public static final int task_done_02=0x7f030009;
         public static final int task_done_list_item=0x7f03000a;
         public static final int task_done_swiplistview=0x7f03000b;
+        public static final int task_todo=0x7f03000c;
+        public static final int task_todo_list_item=0x7f03000d;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
-        public static final int task_done=0x7f080001;
+        public static final int main=0x7f090000;
+        public static final int task_done=0x7f090001;
+    }
+    public static final class raw {
+        public static final int spring=0x7f040000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060002;
-        public static final int app_name=0x7f060000;
-        public static final int hello_world=0x7f060001;
-        public static final int title_activity_task_done=0x7f060003;
+        public static final int action_settings=0x7f070002;
+        public static final int app_name=0x7f070000;
+        public static final int hello_world=0x7f070001;
+        public static final int title_activity_task_done=0x7f070003;
+        public static final int title_activity_task_todo=0x7f070004;
     }
     public static final class style {
         /** 
@@ -403,14 +424,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
-        public static final int dialogSetDuration=0x7f070002;
+        public static final int AppTheme=0x7f080001;
+        public static final int dialogSetDuration=0x7f080002;
     }
     public static final class styleable {
         /** Attributes that can be used with a SlidingMenu.

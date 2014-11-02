@@ -3,13 +3,14 @@ package com.cb.potatoclock;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cb.service.PotatoClockService;
+import com.cb.sqlite.SQLiteDao;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
@@ -40,6 +41,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	public int KILLED_TAG = 0;  //0:没有出现在倒计时页面；1：工作页面；2：短休息页面；3:长休息页面
 	public SharedPreferences sharedPreferences;
 	public SharedPreferences.Editor editor;
+	private Vibrator vibrator;
 	//onSaveInstanceState里面什么都不写，没加入到栈的fragment在被replace之后貌似就能被destory了，不然，不能被destory
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -60,6 +62,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	protected void onResume() {
 		Log.d("MainActivity", "MainActivity-OnResume()");
 		super.onResume();
+		
 	}
 	@Override
 	protected void onPause() {
@@ -75,6 +78,11 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("MainActivity", "MainActivity-OnCreate()");
 		super.onCreate(savedInstanceState);
+		//锁屏时也能弹出Acitivity
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
+				WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON|
+				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		
 		setContentView(R.layout.activity_main);
 		//
 		initTimeData();
@@ -102,7 +110,6 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		//
 		intiSlidingMenu();
 		
-		
 	}
 	//
 	@Override
@@ -111,7 +118,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		editor.putLong("stop_time", System.currentTimeMillis());
 		editor.putInt("working_type",WORKING_TYPE);
 		editor.putInt("potato_number", POTATO_NUMBER);
-		editor.putString("task_name", TASK_NAME);
+		editor.putString("task_name", sharedPreferences.getString("task_name",""));
 		editor.commit();
 		Log.d("MainActivity", "MainActivity-OnStop()");
 	}
@@ -181,20 +188,33 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		
 		@Override
 		public void onClick(View v) {
-			editor.putInt("killed_tag", 1).commit();
 			//得到任务名，赋值给TASK_NAME
 			TASK_NAME = task.getText().toString();
 			//
-			FragmentTransaction ft = fragmentManager.beginTransaction();
-			ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-			ft.replace(R.id.launchFrameLayout,new WorkingFragment());
-//			ft.addToBackStack(null);
-			ft.commit();
-			
-			Intent intent = new Intent(MainActivity.this,PotatoClockService.class);
-//			startService(intent);
+			launchTask();
 		}
 		
+	}
+	//
+	public void launchTask() {
+		String task_name;
+		if ("".equals(TASK_NAME.trim()) || TASK_NAME == null) {
+			task_name = "未命名任务";
+		} else {
+			task_name = TASK_NAME;
+		}
+		editor.putInt("killed_tag", 1).putString("task_name", task_name)
+				.putLong("task_start_time", System.currentTimeMillis())
+				.commit();
+		//
+		FragmentTransaction ft = fragmentManager.beginTransaction();
+		ft.setCustomAnimations(android.R.animator.fade_in,
+				android.R.animator.fade_out);
+		ft.replace(R.id.launchFrameLayout, new WorkingFragment());
+		ft.commit();
+
+		// Intent intent = new Intent(MainActivity.this,PotatoClockService.class);
+		// startService(intent);
 	}
 	//回调函数，监听WokingFragment倒计时完成按钮
 	@Override
@@ -226,6 +246,8 @@ public class MainActivity extends Activity implements FragmentCallBack{
 				Log.d("PotatoNumber", POTATO_NUMBER+"");
 				ft.addToBackStack(null);
 				ft.commit();
+				
+				cancelVibrator();
 			}
 		});
 	}
@@ -245,56 +267,14 @@ public class MainActivity extends Activity implements FragmentCallBack{
 			}
 		});
 	}
-	//TODO
-	public int getWORK_TIME() {
-		return WORK_TIME;
-	}
-
-	public void setWORK_TIME(int wORK_TIME) {
-		WORK_TIME = wORK_TIME;
-	}
-
-	public int getLONG_REST_TIME() {
-		return LONG_REST_TIME;
-	}
-
-	public void setLONG_REST_TIME(int lONG_REST_TIME) {
-		LONG_REST_TIME = lONG_REST_TIME;
-	}
-
-	public int getSHORT_REST_TIME() {
-		return SHORT_REST_TIME;
-	}
-
-	public void setSHORT_REST_TIME(int sHORT_REST_TIME) {
-		SHORT_REST_TIME = sHORT_REST_TIME;
-	}
-	//TODO
-	@Override
-	public int getWorkTimeValue() {
-		return WORK_TIME;
-	}
-
-	@Override
-	public int getShortRestTimeValue() {
-		return SHORT_REST_TIME;
-	}
-
-	@Override
-	public int getLongRestTimeValue() {
-		return LONG_REST_TIME;
-	}
+	
 	//回调函数，初始化WorkingFragment界面
 	@Override
 	public int initWorkingFragment(View view, TextView workStatus,
 			Button button, Button recordTask, ImageButton stopTimer,
 			LinearLayout addImage, TextView showTask) {
 		//设置任务名，为空则显示“未命名任务”
-		if("".equals(TASK_NAME.trim()) || TASK_NAME == null){
-			showTask.setText("未命名任务");
-		}else{
-			showTask.setText(TASK_NAME);
-		}
+		showTask.setText(sharedPreferences.getString("task_name", "未命名任务"));
 		//用图像显示已经完成的番茄数和休息数
 		setStatusImage(addImage);
 		//
@@ -380,9 +360,24 @@ public class MainActivity extends Activity implements FragmentCallBack{
 				ft.replace(R.id.launchFrameLayout, new LaunchFragment());
 				ft.commit();
 				//
+				int workingTime = POTATO_NUMBER * WORK_TIME;
+				SQLiteDao dao = new SQLiteDao(MainActivity.this);
+				String taskName = sharedPreferences.getString("task_name", "未命名任务");
+				long startTime = sharedPreferences.getLong("task_start_time", 0);
+				long doneTime = sharedPreferences.getLong("task_done_time", 0);
+				dao.addDone(taskName, startTime, doneTime, workingTime);
+				//
+				cancelVibrator();
 				clearStatus();
 			}
 		});
+	}
+	//
+	public void cancelVibrator(){
+		if(vibrator == null){
+			vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
+		}
+		vibrator.cancel();
 	}
 	//
 	public void clearStatus(){
@@ -393,5 +388,63 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		WORKING_TYPE = WORKING;
 		POTATO_NUMBER = 1;
 		KILLED_TAG = 0;
+	}
+	//TODO
+	@Override
+	public void startTask(String taskName) {
+/*		Fragment fragment = fragmentManager.findFragmentById(R.id.launchFrameLayout);
+		if(fragment instanceof LaunchFragment){
+			((LaunchFragment) fragment).getEditText().setText(taskName);
+			Log.d("taskName", "aaaaaaaaaa");
+		}*/
+//		menu.showContent();
+		TASK_NAME = taskName;
+		launchTask();
+	}
+	
+	@Override
+	public void closeSlidingMenu() {
+		menu.showContent();
+	}
+	
+	// TODO
+	public int getWORK_TIME() {
+		return WORK_TIME;
+	}
+
+	public void setWORK_TIME(int wORK_TIME) {
+		WORK_TIME = wORK_TIME;
+	}
+
+	public int getLONG_REST_TIME() {
+		return LONG_REST_TIME;
+	}
+
+	public void setLONG_REST_TIME(int lONG_REST_TIME) {
+		LONG_REST_TIME = lONG_REST_TIME;
+	}
+
+	public int getSHORT_REST_TIME() {
+		return SHORT_REST_TIME;
+	}
+
+	public void setSHORT_REST_TIME(int sHORT_REST_TIME) {
+		SHORT_REST_TIME = sHORT_REST_TIME;
+	}
+
+	// TODO
+	@Override
+	public int getWorkTimeValue() {
+		return WORK_TIME;
+	}
+
+	@Override
+	public int getShortRestTimeValue() {
+		return SHORT_REST_TIME;
+	}
+
+	@Override
+	public int getLongRestTimeValue() {
+		return LONG_REST_TIME;
 	}
 }

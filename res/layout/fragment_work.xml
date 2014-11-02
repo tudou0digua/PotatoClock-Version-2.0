@@ -50,7 +50,7 @@
                     android:layout_gravity="center"
                     android:text="25 : "
                     android:textColor="#FFFFFFFF"
-                    android:textSize="40sp" />
+                    android:textSize="50sp" />
 
                 <TextView
                     android:id="@+id/timer_second"
@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:text="00"
                     android:textColor="#FFFFFFFF"
-                    android:textSize="40sp" />
+                    android:textSize="50sp" />
             </LinearLayout>
         </LinearLayout>
 

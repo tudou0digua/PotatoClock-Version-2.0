@@ -8,7 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public interface FragmentCallBack {
-
+	
+	public void closeSlidingMenu();
+	public void startTask(String taskName);
 	public void launchOnClickListener(View view, EditText taskName);
 	public void workTimesUpButtonListener(View view);
 	public void stopPotatoClockButtonListener(View view);

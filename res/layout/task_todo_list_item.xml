@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="#ff999999">
+
+    <LinearLayout
+        android:id="@+id/id_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|end"
+        android:paddingRight="10dp">
+
+        <Button
+            android:id="@+id/task_todo_item_delete"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="删除"
+            android:background="#ffff663a"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="30dp"
+        android:background="#ff55639b">
+
+        <TextView
+            android:id="@+id/task_todo_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="背诵六级单词"
+            android:singleLine="true"
+            android:textSize="30sp"/>
+    </LinearLayout>
+</FrameLayout>

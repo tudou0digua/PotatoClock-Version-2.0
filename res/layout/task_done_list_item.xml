@@ -13,9 +13,9 @@
         <Button
             android:id="@+id/id_remove"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="10dp"
             android:background="#FFFF6666"
             android:text="Delete"
             android:textColor="#ffffff" >
@@ -24,19 +24,86 @@
 
     <LinearLayout
         android:id="@+id/id_front"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffffff" >
-
-        <TextView
-            android:id="@+id/id_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:textColor="#000000"
-            android:textSize="25sp" >
-        </TextView>
-    </LinearLayout>
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:paddingLeft="5dp"
+	    android:paddingRight="5dp"
+	    android:background="#FF99CCCC"
+	    android:gravity="center_vertical">
+	
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_weight="2"
+	        android:gravity="center_horizontal"
+	        android:layout_height="wrap_content">
+	
+	        <Button
+	            android:id="@+id/task_number"
+	            android:layout_width="34dp"
+	            android:layout_height="34dp"
+	            android:text="1"
+	            android:textSize="25sp"
+	            android:textColor="#FF0099cc"
+	            android:background="@drawable/bg_task_done_item_number"
+	            />
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_weight="10"
+	        android:paddingLeft="5dp"
+	        android:layout_height="wrap_content">
+	
+	        <TextView
+	            android:id="@+id/task_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+	            android:text="背诵六级单词600个"
+	            android:textColor="#ff000000"
+	            android:textSize="23sp"
+	            />
+	
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_weight="4"
+	        android:paddingLeft="5dp"
+	        android:layout_height="wrap_content">
+	
+	        <TextView
+	            android:id="@+id/task_working_time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="10分钟"
+	            android:singleLine="true"
+	            android:textColor="#ff0099cc"
+	            android:textSize="19sp"/>
+	
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	
+	        <TextView
+	            android:id="@+id/task_start_time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#FF999999"
+	            android:text="12:21"/>
+	
+	        <TextView
+	            android:id="@+id/task_done_time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#FF999999"
+	            android:text="13:47"/>
+	
+	    </LinearLayout>
+	
+	</LinearLayout>
 
 </FrameLayout>

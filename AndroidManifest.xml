@@ -7,6 +7,9 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
+    
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:allowBackup="true"
@@ -34,6 +37,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cb.potatoclock.MainActivity" />
         </activity>
+        
+        <activity
+            android:name=".TaskToDoActivity"
+            android:label="@string/title_activity_task_todo"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cb.potatoclock.MainActivity" />
+        </activity>
+        
+        <receiver android:name="com.cb.potatoclock.recevier.MyRecevier">
+            <intent-filter >
+                <action android:name="android.intent.action.MY_BROADCAST"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>  
+          
     </application>
 
 </manifest>

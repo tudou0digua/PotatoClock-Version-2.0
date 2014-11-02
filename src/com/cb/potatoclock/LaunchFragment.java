@@ -214,4 +214,8 @@ public class LaunchFragment extends Fragment {
 		tvLongRestTime.setText(String.valueOf(longrest));	
 	}
 
+	public EditText getEditText(){
+		return taskName;
+	}
+	
 }

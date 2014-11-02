@@ -1,11 +1,20 @@
 package com.cb.potatoclock;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +33,15 @@ public class WorkingFragment extends Fragment {
 	private LinearLayout timer_linearlayout,status_image_linearlayout;
 	private int TOTAL_TIME = 1;
 	private long COUNTER_TIME = 0;
-	private CountDownTimer timer;
+	private mCountDownTimer timer;
 	private FragmentCallBack fragmentCallBack;
 	private CircleProgressBarView circleProgressBar;
 	private long millisLeft = 0;
 	private SharedPreferences sp;
 	private SharedPreferences.Editor editor;
+	private Vibrator vibrator;
+	private SoundPool soundPool;
+	private int soundId;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -46,11 +58,7 @@ public class WorkingFragment extends Fragment {
 		Log.d("WorkingFragment","OnResume()");
 		super.onResume();
 	}
-	@Override
-	public void onPause() {
-		Log.d("WorkingFragment","OnPause");
-		super.onPause();
-	}
+	
 	@Override
 	public void onLowMemory() {
 		Log.d("WorkingFragment","OnLowMemory()");
@@ -127,7 +135,9 @@ public class WorkingFragment extends Fragment {
 		int tag = sp.getInt("killed_tag_2", 0);
 		if( tag == 1){
 			COUNTER_TIME = sp.getLong("counter_time_left", 5400000);
-			editor.putInt("killed_tag_2", 0).commit();
+			editor.putInt("killed_tag_2", 0);
+			editor.putLong("task_done_time", System.currentTimeMillis());
+			editor.commit();
 		}
 		//监听取消番茄时钟Button
 		fragmentCallBack.stopPotatoClockButtonListener(stop_timer);
@@ -137,12 +147,11 @@ public class WorkingFragment extends Fragment {
 		circleProgressBar = (CircleProgressBarView)view.findViewById(R.id.circleProgressBar);
 		circleProgressBar.setMax(TOTAL_TIME*60);
 		circleProgressBar.setRadius(dip2px(getActivity(), 110));
-		circleProgressBar.setCircleWidth(dip2px(getActivity(), 5));
+		circleProgressBar.setCircleWidth(dip2px(getActivity(), 7));
 		//初始化倒计时
 		setTimer();
 		//开始倒计时
 		timer.start();
-		
 		Log.d("WorkingFragment","OnCreateView()");
 		
 		return view;
@@ -154,7 +163,9 @@ public class WorkingFragment extends Fragment {
 	}
 	//初始化倒计时
 	public void setTimer() {
-		timer = new CountDownTimer(COUNTER_TIME, 1000) {
+		
+		timer = new MyTimer(COUNTER_TIME,1000);
+/*		timer = new CountDownTimer(COUNTER_TIME, 1000) {
 			
 			@Override
 			public void onTick(long millisUntilFinished) {
@@ -176,6 +187,7 @@ public class WorkingFragment extends Fragment {
 					stop_timer.setVisibility(View.GONE);
 					timer_done.setVisibility(View.VISIBLE);
 					record_task.setVisibility(View.VISIBLE);
+					editor.putLong("task_done_time", System.currentTimeMillis()).commit();
 					//TODO this.cancel()方法失效
 					this.cancel();
 				}
@@ -195,7 +207,126 @@ public class WorkingFragment extends Fragment {
 				record_task.setVisibility(View.VISIBLE);
 			}
 			
-		};
+		};*/
+	}
+	//自定义倒计时类mCountDownTimer,因为官方的CountDownTimer在onTick()中调用cancel()方法失效
+	//而不在onCraeteView中调用cancel()方法是有用的，所以使用了大神写的mCountDownTimer类
+	public class MyTimer extends mCountDownTimer{
+
+		public MyTimer(long millisInFuture, long countDownInterval) {
+			super(millisInFuture, countDownInterval);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			millisLeft = millisUntilFinished;
+			//
+			int minute = (int) millisUntilFinished / 60000;
+			int second = (int) (int) (millisUntilFinished / 1000) % 60;
+			//
+			circleProgressBar.setProgress((int)(millisUntilFinished - 60000)/1000);
+			//
+			if (minute < 10) {
+				timer_minute.setText("0" + (minute - 1) + " : ");
+			} else {
+				timer_minute.setText((minute - 1) + " : ");
+			}
+			if(minute == 0){
+				timer_linearlayout.setVisibility(View.GONE);
+				circleProgressBar.setVisibility(View.GONE);
+				stop_timer.setVisibility(View.GONE);
+				timer_done.setVisibility(View.VISIBLE);
+				record_task.setVisibility(View.VISIBLE);
+				editor.putLong("task_done_time", System.currentTimeMillis()).commit();
+				//TODO
+				Log.d("timer", "timer_times_up");
+				startVibrator();
+				playMusic();
+				sendBroadCast();
+				cancel();
+			}
+			if (second < 10) {
+				timer_second.setText("0" + second);
+			} else {
+				timer_second.setText(second + "");
+			}
+		}
+
+		@Override
+		public void onFinish() {
+			timer_linearlayout.setVisibility(View.GONE);
+			circleProgressBar.setVisibility(View.GONE);
+			stop_timer.setVisibility(View.GONE);
+			timer_done.setVisibility(View.VISIBLE);
+			record_task.setVisibility(View.VISIBLE);
+		}
+		
+	}
+	//
+	public void startVibrator(){
+		if(sp.getBoolean("vibrator", false)){
+			if(vibrator == null){
+				vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+			}
+			vibrator.vibrate(new long[]{1000,1000,1000,1000,1000,1000}, -1);
+		}
+	}
+	//
+	public void sendBroadCast(){
+		if(!isRunningForeground()){
+			Intent intent = new Intent("android.intent.action.MY_BROADCAST");
+			getActivity().sendBroadcast(intent);
+		}
+	}
+	//
+	public void playMusic(){
+		if(sp.getBoolean("ring",false)){
+			Log.d("SoundPool", "playMusic-soundPool");
+			soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+			soundId = soundPool.load(getActivity(), R.raw.spring, 1);
+			soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+				
+				@Override
+				public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+					AudioManager audioManager = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+					int streamVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+					soundPool.play(soundId, streamVolume, streamVolume, 1, 3, 1.0f);
+				}
+			});
+		}
+	}
+	//判断当前运行的程序是否为PotatoClock，是返回true，否则返回false
+	private boolean isRunningForeground(){
+		Context context = getActivity();
+		String packageName = context.getPackageName();
+		String topActivityName = getTopActivityName(context);
+		if(packageName != null && topActivityName != null && topActivityName.startsWith(packageName)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//得到当前运行Activity的名称
+	private String getTopActivityName(Context context){
+		String name = null;
+		ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+		List<RunningTaskInfo> runningTaskInfo = manager.getRunningTasks(1);
+		if(runningTaskInfo != null){
+			ComponentName componentName = runningTaskInfo.get(0).topActivity;
+			name = componentName.getClassName();
+		}
+		return name;
+	}
+	//
+	@Override
+	public void onPause() {
+		Log.d("WorkingFragment","OnPause");
+		super.onPause();
+		if(soundPool != null){
+			soundPool.release();
+		}
 	}
 	//
 	@Override
@@ -205,5 +336,6 @@ public class WorkingFragment extends Fragment {
 		
 		Log.d("WorkingFragment","OnStop()");
 	}
+	
 	
 }

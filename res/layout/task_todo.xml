@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="#e3ffc23a"
+	android:padding="10dp"
+	xmlns:swipe="http://schemas.android.com/apk/res/com.cb.potatoclock">
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_marginBottom="10dp"
+	    android:focusable="true"
+	    android:focusableInTouchMode="true">
+	
+	    <EditText
+	        android:id="@+id/task_todo_name_edittext"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="4"
+	        android:singleLine="true"
+	        android:layout_gravity="bottom"
+	        android:hint="输入任务，没错就是这里！"
+	        />
+	
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal">
+	
+	        <Button
+	            android:id="@+id/task_todo_name_submit"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="提交"
+	            android:background="#ff55639b"/>
+	
+	    </LinearLayout>
+	</LinearLayout>
+	
+	<com.fortysevendeg.swipelistview.SwipeListView 
+	    android:id="@+id/task_todo_swiplistview"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    swipe:swipeActionLeft="reveal"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeFrontView="@+id/id_front"
+        swipe:swipeBackView="@+id/id_back"
+        swipe:swipeMode="left"
+        swipe:swipeOffsetLeft="200dp"
+        swipe:swipeOpenOnLongPress="true"/>
+
+</LinearLayout>

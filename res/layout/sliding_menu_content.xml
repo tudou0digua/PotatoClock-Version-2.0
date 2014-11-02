@@ -13,6 +13,7 @@
         android:textSize="20sp"/>
     
     <LinearLayout 
+        android:id="@+id/task_todo_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,6 +66,7 @@
             android:textSize="20sp"/>
         
         <CheckBox 
+            android:id="@+id/checkbox_ring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"/>
@@ -85,6 +87,7 @@
             android:textSize="20sp"/>
         
         <CheckBox 
+            android:id="@+id/checkbox_vibrator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"/>

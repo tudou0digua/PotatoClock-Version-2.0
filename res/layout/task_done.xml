@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/framlayout_task_done"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-</FrameLayout>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFCCCC99"
+	xmlns:swipe="http://schemas.android.com/apk/res/com.cb.potatoclock"
+    >
+
+    <LinearLayout
+        android:id="@+id/task_done_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FF99CCCC">
+
+        <TextView
+            android:id="@+id/task_done_selected_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2014"
+            android:textSize="30sp"
+            android:textColor="#FF000000"/>
+
+    </LinearLayout>
+
+    <com.fortysevendeg.swipelistview.SwipeListView 
+        android:id="@+id/task_done_swiplistview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        swipe:swipeActionLeft="reveal"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeFrontView="@+id/id_front"
+        swipe:swipeBackView="@+id/id_back"
+        swipe:swipeMode="left"
+        swipe:swipeOffsetLeft="200dp"
+        swipe:swipeOpenOnLongPress="true"/>
+
+
+
+</LinearLayout>
