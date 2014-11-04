@@ -25,7 +25,7 @@ public class LaunchFragment extends Fragment {
 	private Dialog dialogSetDuration;
 	private LinearLayout linearLayoutWork, linearLayoutShortTime,linearLayoutLongTime;
 	private Button dialogCancel, dialogConfirm;
-	private ImageButton launch;
+	private ImageButton launch,setting;
 	private FragmentCallBack fragmentCallBack;
 	private SeekBar seekBarWorkTime,seekBarShortRestTime,seekBarLongRestTime;
 	private TextView tvWorkTime,tvShortRestTime,tvLongRestTime;
@@ -88,7 +88,15 @@ public class LaunchFragment extends Fragment {
 		//开始番茄工作法，监听launch按钮
 		launch = ((ImageButton)view.findViewById(R.id.ready_go));
 		fragmentCallBack.launchOnClickListener(launch, taskName);
-		
+		//设置按钮
+		setting = (ImageButton)view.findViewById(R.id.setting_button);
+		setting.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				fragmentCallBack.openSLidingMenu();
+			}
+		});
 		
 		return view;
 	}

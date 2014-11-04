@@ -71,7 +71,7 @@ int drawable tomato 0x7f020027
 int drawable tomato_break 0x7f020028
 int drawable tomato_gray 0x7f020029
 int id HorizontalScrollView1 0x7f05001a
-int id action_settings 0x7f050042
+int id action_settings 0x7f050043
 int id both 0x7f050006
 int id checkbox_ring 0x7f05002d
 int id checkbox_vibrator 0x7f05002e
@@ -80,6 +80,7 @@ int id circleProgressBar 0x7f050013
 int id dialog_button_cancel 0x7f050011
 int id dialog_button_confirm 0x7f050012
 int id dismiss 0x7f050008
+int id exit 0x7f050042
 int id framlayout_task_done 0x7f050037
 int id fullscreen 0x7f050003
 int id id_back 0x7f050033

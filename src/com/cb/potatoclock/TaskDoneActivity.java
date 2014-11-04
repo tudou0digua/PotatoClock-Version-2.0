@@ -60,7 +60,15 @@ public class TaskDoneActivity extends FragmentActivity {
 		mAdapter = new TaskDoneAdapter(mDatas, this, mSwipeListView);
 		mSwipeListView.setAdapter(mAdapter);
 		
-		mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener());
+		mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener(){
+
+			@Override
+			public void onStartOpen(int position, int action, boolean right) {
+				mSwipeListView.closeOpenedItems();
+				super.onStartOpen(position, action, right);
+			}
+			
+		});
 		
 		Log.d("TaskDoneAcitivity", "TaskDone onCreate()");
 	}

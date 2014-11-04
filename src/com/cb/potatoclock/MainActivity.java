@@ -9,6 +9,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -401,12 +404,16 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		TASK_NAME = taskName;
 		launchTask();
 	}
-	
+	//关闭slidingMenu
 	@Override
 	public void closeSlidingMenu() {
-		menu.showContent();
+		menu.showContent(false);
 	}
-	
+	//打开SlidingMenu
+	@Override
+	public void openSLidingMenu() {
+		menu.showMenu();
+	}
 	// TODO
 	public int getWORK_TIME() {
 		return WORK_TIME;
@@ -447,4 +454,25 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	public int getLongRestTimeValue() {
 		return LONG_REST_TIME;
 	}
+	//
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
+	}
+	//
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch(id){
+		case R.id.exit :
+			clearStatus();
+			MainActivity.this.finish();
+			break;
+		}
+		return true;
+	}
+	
+	
 }

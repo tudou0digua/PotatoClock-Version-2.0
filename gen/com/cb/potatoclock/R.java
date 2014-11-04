@@ -285,7 +285,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class id {
         public static final int HorizontalScrollView1=0x7f05001a;
-        public static final int action_settings=0x7f050042;
+        public static final int action_settings=0x7f050043;
         public static final int both=0x7f050006;
         public static final int checkbox_ring=0x7f05002d;
         public static final int checkbox_vibrator=0x7f05002e;
@@ -294,6 +294,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dialog_button_cancel=0x7f050011;
         public static final int dialog_button_confirm=0x7f050012;
         public static final int dismiss=0x7f050008;
+        public static final int exit=0x7f050042;
         public static final int framlayout_task_done=0x7f050037;
         public static final int fullscreen=0x7f050003;
         public static final int id_back=0x7f050033;

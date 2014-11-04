@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public interface FragmentCallBack {
 	
+	public void openSLidingMenu();
 	public void closeSlidingMenu();
 	public void startTask(String taskName);
 	public void launchOnClickListener(View view, EditText taskName);

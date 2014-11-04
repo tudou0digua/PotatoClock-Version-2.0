@@ -53,6 +53,13 @@ public class TaskToDoActivity extends FragmentActivity {
 				setResult(1000,intent);
 				finish();
 			}
+
+			@Override
+			public void onStartOpen(int position, int action, boolean right) {
+				swipeListView.closeOpenedItems();
+				super.onStartOpen(position, action, right);
+			}
+			
 		});
 		
 		taskNameEditView = (EditText)findViewById(R.id.task_todo_name_edittext);

@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:background="#FFFF6666"
-            android:text="Delete"
+            android:text="删除"
             android:textColor="#ffffff" >
         </Button>
     </LinearLayout>

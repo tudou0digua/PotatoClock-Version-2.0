@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center|end"
+        android:background="#ffcccccc"
         android:paddingRight="10dp">
 
         <Button
@@ -18,7 +19,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="删除"
-            android:background="#ffff663a"/>
+            android:background="#FFFF6666"/>
 
     </LinearLayout>
 
@@ -29,7 +30,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:background="#ff55639b">
+        android:background="#FF99CCCC">
 
         <TextView
             android:id="@+id/task_todo_item_name"
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="背诵六级单词"
             android:singleLine="true"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="#FF000000"/>
     </LinearLayout>
 </FrameLayout>
