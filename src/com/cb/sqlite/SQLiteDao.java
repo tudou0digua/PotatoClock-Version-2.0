@@ -17,15 +17,15 @@ public class SQLiteDao implements SQLiteOperate{
 	public SQLiteDao(Context context){
 		mySQLiteOpenHelper = new MySQLiteOpenHelper(context);
 	}
-	
+	//打开数据库
 	public void openDB(){
 		db = mySQLiteOpenHelper.getReadableDatabase();
 	}
-	
+	//关闭数据库
 	public void closeDB(){
 		db.close();
 	}
-	
+	//给TABLE_TASK_DONE添加数据
 	@Override
 	public void addDone(String taskName, long startTime, long doneTime, int workingTime) {
 		openDB();
@@ -39,14 +39,14 @@ public class SQLiteDao implements SQLiteOperate{
 		db.insert(TABLE_TASK_DONE, null, cv);
 		db.close();
 	}
-
+	//删除TABLE_TASK_DONE中指定Id的数据
 	@Override
 	public void deleteDone(int id) {
 		openDB();
 		db.delete(TABLE_TASK_DONE, "_id=?", new String[]{String.valueOf(id)});
 		db.close();
 	}
-
+	//查询TABLE_TASK_DONE中指定日期的数据
 	@Override
 	public Cursor queryDoneDate(String date) {
 		openDB();
@@ -57,7 +57,7 @@ public class SQLiteDao implements SQLiteOperate{
 		
 		return cursor;
 	}
-
+	//给TABLE_TASK_TODO添加数据
 	@Override
 	public void addToDo(String taskToDoName) {
 		openDB();
@@ -66,14 +66,14 @@ public class SQLiteDao implements SQLiteOperate{
 		db.insert(TABLE_TASK_TODO, null, cv);
 		db.close();
 	}
-
+	//删除TABLE_TASK_TODO中指定Id的数据
 	@Override
 	public void deleteToDo(int id) {
 		openDB();
 		db.delete(TABLE_TASK_TODO, "_id=?", new String[]{String.valueOf(id)});
 		db.close();
 	}
-
+	//查询TABLE_TASK_TODO中所有数据
 	@Override
 	public Cursor queryToDoList() {
 		openDB();

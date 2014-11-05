@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+//回调接口，MainActivity实习该接口，以便，fragment和MainActivity之间通信
 public interface FragmentCallBack {
 	
 	public void openSLidingMenu();

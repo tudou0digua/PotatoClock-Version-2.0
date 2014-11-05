@@ -63,13 +63,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="响铃"
+            android:layout_gravity="center_vertical|right"
             android:textSize="20sp"/>
         
         <CheckBox 
             android:id="@+id/checkbox_ring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="70dp"/>
         
     </LinearLayout>
     
@@ -84,13 +85,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="震动"
+            android:layout_gravity="center_vertical"
             android:textSize="20sp"/>
         
         <CheckBox 
             android:id="@+id/checkbox_vibrator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="70dp"/>
         
     </LinearLayout>
     

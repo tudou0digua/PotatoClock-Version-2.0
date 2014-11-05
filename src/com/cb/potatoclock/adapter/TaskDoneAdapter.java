@@ -79,19 +79,19 @@ public class TaskDoneAdapter extends BaseAdapter {
 		viewHolder.taskWorkingTime.setText(mDatas.get(position).getWorkingTime() + "分钟");
 		viewHolder.taskStartTime.setText(mDatas.get(position).getStartTime());
 		viewHolder.taskDoneTime.setText(mDatas.get(position).getDoneTime());
-		//TODO
+		//监听删除按钮操作
 		viewHolder.remove.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				//TODO
+				//删除数据库中对应数据
 				SQLiteDao dao = new SQLiteDao(context);
 				dao.deleteDone(mDatas.get(position).getId());
-				//TODO
+				//删除mDatas中对应的数据
 				mDatas.remove(position);
-				//
+				//关闭打开的itme，不然刷新界面可能会出错
 				mSwipeListView.closeOpenedItems();
-				//TODO
+				//T通知adapter刷新界面
 				notifyDataSetChanged();
 			}
 		});

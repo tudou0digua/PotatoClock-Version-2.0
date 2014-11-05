@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.util.Log;
 
 public class MyRecevier extends BroadcastReceiver {
-
+	//打开倒计时页面
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Intent show = new Intent(context, MainActivity.class);

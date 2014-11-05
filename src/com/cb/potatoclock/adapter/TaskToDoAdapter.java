@@ -72,12 +72,11 @@ public class TaskToDoAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				SQLiteDao dao = new SQLiteDao(context);
+				//删除数据库中对应的数据
 				dao.deleteToDo(data.get(position).getId());
-				//TODO
+				//删除data中对应数据
 				data.remove(position);
-				//
 				swipeListView.closeOpenedItems();
-				//TODO
 				notifyDataSetChanged();
 				
 			}

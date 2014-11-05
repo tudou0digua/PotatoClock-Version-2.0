@@ -285,7 +285,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class id {
         public static final int HorizontalScrollView1=0x7f05001a;
-        public static final int action_settings=0x7f050043;
+        public static final int action_settings=0x7f05003f;
         public static final int both=0x7f050006;
         public static final int checkbox_ring=0x7f05002d;
         public static final int checkbox_vibrator=0x7f05002e;
@@ -294,12 +294,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dialog_button_cancel=0x7f050011;
         public static final int dialog_button_confirm=0x7f050012;
         public static final int dismiss=0x7f050008;
-        public static final int exit=0x7f050042;
-        public static final int framlayout_task_done=0x7f050037;
+        public static final int exit=0x7f05003e;
         public static final int fullscreen=0x7f050003;
         public static final int id_back=0x7f050033;
         public static final int id_front=0x7f050032;
-        public static final int id_remove=0x7f050038;
+        public static final int id_remove=0x7f050034;
         public static final int launchFrameLayout=0x7f05000a;
         public static final int launch_main=0x7f05001e;
         public static final int left=0x7f050001;
@@ -325,23 +324,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int status_image_linearlayout=0x7f05001b;
         public static final int status_textview=0x7f050015;
         public static final int stop_timer=0x7f05001c;
-        public static final int task_done_day=0x7f050036;
         public static final int task_done_linearlayout=0x7f05002c;
-        public static final int task_done_month=0x7f050035;
         public static final int task_done_selected_time=0x7f050030;
         public static final int task_done_swiplistview=0x7f050031;
-        public static final int task_done_time=0x7f05003c;
-        public static final int task_done_year=0x7f050034;
+        public static final int task_done_time=0x7f050038;
         public static final int task_name=0x7f050023;
-        public static final int task_number=0x7f050039;
-        public static final int task_start_time=0x7f05003b;
-        public static final int task_todo_item_delete=0x7f050040;
-        public static final int task_todo_item_name=0x7f050041;
+        public static final int task_number=0x7f050035;
+        public static final int task_start_time=0x7f050037;
+        public static final int task_todo_item_delete=0x7f05003c;
+        public static final int task_todo_item_name=0x7f05003d;
         public static final int task_todo_linearlayout=0x7f05002b;
-        public static final int task_todo_name_edittext=0x7f05003d;
-        public static final int task_todo_name_submit=0x7f05003e;
-        public static final int task_todo_swiplistview=0x7f05003f;
-        public static final int task_working_time=0x7f05003a;
+        public static final int task_todo_name_edittext=0x7f050039;
+        public static final int task_todo_name_submit=0x7f05003a;
+        public static final int task_todo_swiplistview=0x7f05003b;
+        public static final int task_working_time=0x7f050036;
         public static final int textview_longresttime=0x7f050029;
         public static final int textview_shortresttime=0x7f050027;
         public static final int textview_worktime=0x7f050025;
@@ -363,11 +359,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int sliding_menu_content=0x7f030006;
         public static final int slidingmenumain=0x7f030007;
         public static final int task_done=0x7f030008;
-        public static final int task_done_02=0x7f030009;
-        public static final int task_done_list_item=0x7f03000a;
-        public static final int task_done_swiplistview=0x7f03000b;
-        public static final int task_todo=0x7f03000c;
-        public static final int task_todo_list_item=0x7f03000d;
+        public static final int task_done_list_item=0x7f030009;
+        public static final int task_todo=0x7f03000a;
+        public static final int task_todo_list_item=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f090000;

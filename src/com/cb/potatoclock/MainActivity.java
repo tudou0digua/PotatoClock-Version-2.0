@@ -32,14 +32,14 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	private SlidingMenuFragment slidingMenuFragment;
 	private SlidingMenu menu;
 	private FragmentManager fragmentManager;
-	public  static int WORK_TIME = 25;
-	public  static int LONG_REST_TIME = 25;
-	public  static int SHORT_REST_TIME = 5;
-	private final int WORKING = 0;
+	public  static int WORK_TIME = 25;  //工作时间
+	public  static int LONG_REST_TIME = 25;  //长休息时间
+	public  static int SHORT_REST_TIME = 5;  //短休息时间
+	private final int WORKING = 0; 
 	private final int SHORT_REST = 1;
 	private final int LONG_REST = 2;
 	public int WORKING_TYPE = WORKING;
-	public int POTATO_NUMBER = 1;
+	public int POTATO_NUMBER = 1; //完成的番茄时钟数
 	public String TASK_NAME = "";
 	public int KILLED_TAG = 0;  //0:没有出现在倒计时页面；1：工作页面；2：短休息页面；3:长休息页面
 	public SharedPreferences sharedPreferences;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	public void onSaveInstanceState(Bundle outState) {
 		Log.d("MainActivity", "MainActivity-onSaveInstanceState()");
 	}
-	
+    //打印Activity生命周期的各个状态，了解Activity都执行了哪些步骤
 	@Override
 	protected void onStart() {
 		Log.d("MainActivity", "MainActivity-OnStart()");
@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		Log.d("MainActivity", "MainActivity-OnDestroy()");
 		super.onDestroy();
 	}
+	//在OnCreate()中初始化各数据，显示界面
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("MainActivity", "MainActivity-OnCreate()");
@@ -87,14 +88,15 @@ public class MainActivity extends Activity implements FragmentCallBack{
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		setContentView(R.layout.activity_main);
-		//
+		//初始化和各个倒计时有关的数据
 		initTimeData();
-		//
+		//新建侧边栏Fragment
 		slidingMenuFragment = new SlidingMenuFragment();
-		//
+		//得到fragmentManager，管理Fragment的操作
 		fragmentManager = getFragmentManager();
 		FragmentTransaction ft = fragmentManager.beginTransaction();
-
+		//判断KILLED_TAG。为0的话，则打开初始页面，
+		//否则，为其他数值的话，表示上一次的页面为倒计时页面（即上一次在倒计时时，进程被意外杀死，要恢复上一次倒计时页面）
 		if (KILLED_TAG == 0) {
 			launchFragment = new LaunchFragment();
 			ft.replace(R.id.launchFrameLayout, launchFragment);
@@ -104,17 +106,18 @@ public class MainActivity extends Activity implements FragmentCallBack{
 			long pastTime = System.currentTimeMillis() - stopTime;
 			long millisLeft = sharedPreferences.getLong("millisLeft", 0);
 			editor.putLong("counter_time_left", millisLeft - pastTime);
-			// 当killed_tag_2 为1时，代表应用在计时阶段被杀死过，这样couter_time_left可以赋值给WorkingFragment的COUNTER_TIME
+			//只有在恢复上次由于进程被意外杀死时的页面时，killed_tag_2才被赋值为1，
+			//以便在WorkingFragment判断是新建页面还是恢复页面
+			// 当killed_tag_2 为1时，代表应用在计时阶段被杀死过，
+			//这样couter_time_left可以赋值给WorkingFragment的COUNTER_TIME
 			editor.putInt("killed_tag_2", 1).commit();
 			ft.replace(R.id.launchFrameLayout, new WorkingFragment());
 		}
-		//
 		ft.commit();
-		//
+		//初始化SlidingMenu
 		intiSlidingMenu();
-		
 	}
-	//
+	//在OnStop()中保存各数据，以便后来恢复Activity时使用（例如：内存不够时，会杀掉进程，再打开程序时，会重新调用OnCreate方法）
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -125,7 +128,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		editor.commit();
 		Log.d("MainActivity", "MainActivity-OnStop()");
 	}
-	//
+	//初始化和各个倒计时有关的数据
 	private void initTimeData(){
 		sharedPreferences = this.getSharedPreferences("pomodoro_time", MODE_PRIVATE);
 		editor = sharedPreferences.edit();
@@ -135,13 +138,13 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		KILLED_TAG = sharedPreferences.getInt("killed_tag",0);
 		editor.putInt("killed_tag_2", 0).commit();
 	}
-	//
+	//程序上次不正常退出，又重新启动程序时，恢复上次保存的数据
 	private void initStatusData(){
 		WORKING_TYPE = sharedPreferences.getInt("working_type", WORKING);
 		POTATO_NUMBER = sharedPreferences.getInt("potato_number", 1);
 		TASK_NAME = sharedPreferences.getString("task_name", "");
 	}
-	//
+	//初始化SlidingMenu
 	private void intiSlidingMenu() {
 		menu = new SlidingMenu(this);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -153,36 +156,25 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		menu.setMenu(R.layout.sliding_menu);
 		fragmentManager.beginTransaction().replace(R.id.sliding_menu, slidingMenuFragment).commit();
 	}
-
+	//监听返回键
 	@Override
 	public void onBackPressed() {
 		if(menu.isMenuShowing()){
+			//如果SlidingmMenu正打开，则关闭SlidingMenu
 			menu.showContent();
-			
 		}else{
+			//按返回键，不结束应用程序（默认finish（）了），只是将包含该Activity的Task入栈
+			//fasle:仅当activity为task根（即首个activity例如启动activity之类的）时才生效
+			//true:忽略上面的限制
 			moveTaskToBack(false);
-			//super.onBackPressed();
 		}
-		
 	}
-
-/*	//重写返回键，使程序后台运行
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			moveTaskToBack(false);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}*/
-
-
 	//回调函数，实现LaunchFragment页面launch按钮的监听
 	@Override
 	public void launchOnClickListener(View view, EditText taskName) {
 		view.setOnClickListener(new LaunchButtonOnClickListener(taskName));
 	}
-	//重写LaunchButton的OnClickListener 接口
+	//重写LaunchButton的OnClickListener 接口,开始番茄工作
 	public class LaunchButtonOnClickListener implements OnClickListener{
 		EditText task;
 		public LaunchButtonOnClickListener(EditText taskName){
@@ -193,23 +185,25 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		public void onClick(View v) {
 			//得到任务名，赋值给TASK_NAME
 			TASK_NAME = task.getText().toString();
-			//
+			//开始番茄工作
 			launchTask();
 		}
-		
 	}
-	//
+	//开始番茄工作
 	public void launchTask() {
 		String task_name;
+		//判断任务名是否为空，为空则赋值为"未命名任务"
 		if ("".equals(TASK_NAME.trim()) || TASK_NAME == null) {
 			task_name = "未命名任务";
 		} else {
 			task_name = TASK_NAME;
 		}
-		editor.putInt("killed_tag", 1).putString("task_name", task_name)
-				.putLong("task_start_time", System.currentTimeMillis())
-				.commit();
-		//
+		//出入各类数据
+		editor.putInt("killed_tag", 1)
+			  .putString("task_name", task_name)
+			  .putLong("task_start_time", System.currentTimeMillis())
+			  .commit();
+		//开始番茄工作
 		FragmentTransaction ft = fragmentManager.beginTransaction();
 		ft.setCustomAnimations(android.R.animator.fade_in,
 				android.R.animator.fade_out);
@@ -243,11 +237,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 					WORKING_TYPE = WORKING;
 					POTATO_NUMBER++;
 				}
-				
 				ft.replace(R.id.launchFrameLayout,workingFragment);
-				
-				Log.d("PotatoNumber", POTATO_NUMBER+"");
-				ft.addToBackStack(null);
 				ft.commit();
 				
 				cancelVibrator();
@@ -265,7 +255,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 				ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 				ft.replace(R.id.launchFrameLayout, new LaunchFragment());
 				ft.commit();
-				//
+				//清除状态
 				clearStatus();
 			}
 		});
@@ -280,7 +270,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		showTask.setText(sharedPreferences.getString("task_name", "未命名任务"));
 		//用图像显示已经完成的番茄数和休息数
 		setStatusImage(addImage);
-		//
+		//根据WORKING_TYPE，设置不同的WorkingFragment界面
 		switch (WORKING_TYPE) {
 		case WORKING:
 			view.setBackgroundColor(Color.parseColor("#CC0033"));
@@ -362,27 +352,27 @@ public class MainActivity extends Activity implements FragmentCallBack{
 				ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 				ft.replace(R.id.launchFrameLayout, new LaunchFragment());
 				ft.commit();
-				//
+				//将完成任务的信息存入数据库
 				int workingTime = POTATO_NUMBER * WORK_TIME;
 				SQLiteDao dao = new SQLiteDao(MainActivity.this);
 				String taskName = sharedPreferences.getString("task_name", "未命名任务");
 				long startTime = sharedPreferences.getLong("task_start_time", 0);
 				long doneTime = sharedPreferences.getLong("task_done_time", 0);
 				dao.addDone(taskName, startTime, doneTime, workingTime);
-				//
+				//取消震动和清除状态
 				cancelVibrator();
 				clearStatus();
 			}
 		});
 	}
-	//
+	//取消震动
 	public void cancelVibrator(){
 		if(vibrator == null){
 			vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
 		}
 		vibrator.cancel();
 	}
-	//
+	//清除各个状态
 	public void clearStatus(){
 		editor.putInt("working_type",WORKING);
 		editor.putInt("potato_number", 1);
@@ -392,29 +382,23 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		POTATO_NUMBER = 1;
 		KILLED_TAG = 0;
 	}
-	//TODO
+	//回调函数，在未完成任务页面，单击任务名时调用，得到任务名，开始计时
 	@Override
 	public void startTask(String taskName) {
-/*		Fragment fragment = fragmentManager.findFragmentById(R.id.launchFrameLayout);
-		if(fragment instanceof LaunchFragment){
-			((LaunchFragment) fragment).getEditText().setText(taskName);
-			Log.d("taskName", "aaaaaaaaaa");
-		}*/
-//		menu.showContent();
 		TASK_NAME = taskName;
 		launchTask();
 	}
-	//关闭slidingMenu
+	//回调函数，关闭slidingMenu
 	@Override
 	public void closeSlidingMenu() {
 		menu.showContent(false);
 	}
-	//打开SlidingMenu
+	//回调函数，打开SlidingMenu
 	@Override
 	public void openSLidingMenu() {
 		menu.showMenu();
 	}
-	// TODO
+	// 得到、设置Work_time,long_rent_tiem,short_rest_time,以便在其他类，方法中调用
 	public int getWORK_TIME() {
 		return WORK_TIME;
 	}
@@ -439,7 +423,6 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		SHORT_REST_TIME = sHORT_REST_TIME;
 	}
 
-	// TODO
 	@Override
 	public int getWorkTimeValue() {
 		return WORK_TIME;
@@ -454,14 +437,14 @@ public class MainActivity extends Activity implements FragmentCallBack{
 	public int getLongRestTimeValue() {
 		return LONG_REST_TIME;
 	}
-	//
+	//设置Menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return true;
 	}
-	//
+	//监听Menu子项，完成子项被按下时的操作
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();

@@ -29,7 +29,7 @@ public final class R {
 		public static final int ic_launcher = 0x7f020007;
 	}
 	public static final class id {
-		public static final int action_settings = 0x7f050043;
+		public static final int action_settings = 0x7f05003f;
 		public static final int both = 0x7f050006;
 		public static final int choice = 0x7f050007;
 		public static final int dismiss = 0x7f050008;

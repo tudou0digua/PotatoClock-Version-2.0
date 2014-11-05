@@ -3,6 +3,7 @@ package com.cb.potatoclock;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -32,13 +33,14 @@ public class LaunchFragment extends Fragment {
 	private TextView tvLaunchWorkTime,tvLaunchShortRestTime,tvLaunchLongRestTime;
 	private int workTime,shortRestTime,longRestTime;
 	private EditText taskName;
-	private Bundle cacheTime= new Bundle();
+	private Bundle cacheTime= new Bundle(); //缓存seekingBar的值，按dialog的确定按钮时才使用该值
 	public SharedPreferences sp;
 	public SharedPreferences.Editor editor;
 	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		//得到LaunchFragment绑定的Activity的实例
 		try{
 			fragmentCallBack = (MainActivity)activity;
 		}catch(ClassCastException e){
@@ -46,11 +48,10 @@ public class LaunchFragment extends Fragment {
 		}
 	}
 	
-	//绑定SharedPreferences
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		//getSharedPreferences("pomodoro", 0)中的0表示：MODE_PRIVATE
-		sp = getActivity().getSharedPreferences("pomodoro_time", 0);
+		//绑定SharedPreferences
+		sp = getActivity().getSharedPreferences("pomodoro_time", Context.MODE_PRIVATE);
 		editor = sp.edit();
 		editor.putInt("killed_tag", 0).commit();
 		super.onCreate(savedInstanceState);
@@ -88,12 +89,13 @@ public class LaunchFragment extends Fragment {
 		//开始番茄工作法，监听launch按钮
 		launch = ((ImageButton)view.findViewById(R.id.ready_go));
 		fragmentCallBack.launchOnClickListener(launch, taskName);
-		//设置按钮
+		//设置按钮(launch页面左上角，设置按钮)
 		setting = (ImageButton)view.findViewById(R.id.setting_button);
 		setting.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				//单击时，打开slidingMenu
 				fragmentCallBack.openSLidingMenu();
 			}
 		});
@@ -204,26 +206,25 @@ public class LaunchFragment extends Fragment {
 		}
 		
 	}
-	// 设置工作时间等的Dialog
+	// 得到设置工作时间等的Dialog
 	private void myDialog() {
 		dialogSetDuration = new Dialog(getActivity(),R.style.dialogSetDuration);
 		dialogSetDuration.setContentView(R.layout.dialog_setduration);
 	}
-	//设置luanch页面有关时间的TextView
+	//设置luanch页面有关时间的TextView的值
 	private void setLuanchTimeTextView(int work,int shortrest,int longrest){
 		tvLaunchWorkTime.setText(work+"分钟");
 		tvLaunchShortRestTime.setText(shortrest+"分钟");
 		tvLaunchLongRestTime.setText(longrest+"分钟");
 	}
-	//设置dialog页面有关时间的TextView
+	//设置dialog页面有关时间的TextView的值
 	private void setDialogTimeTextView(int work,int shortrest,int longrest){
 		tvWorkTime.setText(String.valueOf(work));
 		tvShortRestTime.setText(String.valueOf(shortrest));
 		tvLongRestTime.setText(String.valueOf(longrest));	
 	}
-
+	//得到edittext，以便其他类调用（这里被MainActivity调用）
 	public EditText getEditText(){
 		return taskName;
 	}
-	
 }

@@ -52,6 +52,7 @@ public class CircleProgressBarView extends View {
 	public CircleProgressBarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		paint = new Paint();
+		//绘画的一个区域
 		oval = new RectF();
 	}
 
@@ -60,12 +61,17 @@ public class CircleProgressBarView extends View {
 		super.onDraw(canvas);
 		float width = (float)this.getWidth()/2;
 		float height = (float)this.getHeight()/2;
+		//去锯齿化
 		paint.setAntiAlias(true);
 		paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+		//设置画笔颜色
 		paint.setColor(Color.parseColor("#99CCCCFF"));
+		//设置画笔为Stroke，并设置其宽度
 		paint.setStrokeWidth(circleWidth);
 		paint.setStyle(Paint.Style.STROKE);
+		//画内部浅色园
 		canvas.drawCircle(width,height,radius,paint);
+		//画外部亮白色圆环
 		paint.setColor(Color.WHITE);
 		oval.set(width - radius, height - radius, width + radius, height + radius);
 		canvas.drawArc(oval, -90, ((float)progress/max)*360, false, paint);
