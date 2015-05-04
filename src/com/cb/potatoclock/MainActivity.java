@@ -273,7 +273,7 @@ public class MainActivity extends Activity implements FragmentCallBack{
 		//根据WORKING_TYPE，设置不同的WorkingFragment界面
 		switch (WORKING_TYPE) {
 		case WORKING:
-			view.setBackgroundColor(Color.parseColor("#CC0033"));
+			view.setBackgroundColor(Color.parseColor("#FF2D2D"));
 			workStatus.setText("工作中...");
 
 			if (POTATO_NUMBER % 4 == 0) {
